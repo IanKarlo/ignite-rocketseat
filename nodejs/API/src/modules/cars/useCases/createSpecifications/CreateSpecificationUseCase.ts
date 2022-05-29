@@ -1,12 +1,18 @@
-import { ISpecificationRepository } from "../../repositories/ISpecificationRespository";
+import { inject, injectable } from "tsyringe";
+
+import { ISpecificationsRepository } from "../../repositories/ISpecificationRespository";
 
 interface IRequest {
   name: string;
   description: string;
 }
 
+@injectable()
 class CreateSpecificationUseCase {
-  constructor(private specificationsRepository: ISpecificationRepository) {}
+  constructor(
+    @inject("SpecificationsRepository")
+    private specificationsRepository: ISpecificationsRepository
+  ) {}
 
   async execute({ name, description }: IRequest) {
     const alreadySpecification = await this.specificationsRepository.findByName(

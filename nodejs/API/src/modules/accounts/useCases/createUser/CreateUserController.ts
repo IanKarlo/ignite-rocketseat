@@ -5,7 +5,7 @@ import { CreateUserUseCase } from "./CreateUserUseCase";
 
 class CreateUserController {
   async handle(request: Request, response: Response) {
-    const { name, email, driver_license, password, username } = request.body;
+    const { name, email, driver_license, password } = request.body;
 
     const createUserUseCase = container.resolve(CreateUserUseCase);
     try {
@@ -14,7 +14,6 @@ class CreateUserController {
         email,
         driver_license,
         password,
-        username,
       });
     } catch (err) {
       return response.status(400).json({
